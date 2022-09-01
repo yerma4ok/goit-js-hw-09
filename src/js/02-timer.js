@@ -40,9 +40,9 @@ function setTimer(userTime) {
   refs.btnStart.addEventListener('click', () => {
     timerId = setInterval(() => {
       const currentTime = Date.now();
-      // console.log("current time",currentTime);
+      
       const deltaTime = userTime - currentTime;
-      console.log('Осталось до дати', deltaTime);
+      console.log('осталось до указанной даты', deltaTime);
       const { days, hours, minutes, seconds } = convertMs(deltaTime);
 
       refs.clockDay.textContent = addLeadingZero(days);
