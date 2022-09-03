@@ -1,4 +1,4 @@
-import flatpickr from "flatpickr";
+import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
@@ -26,25 +26,23 @@ const options = {
     if (setUserDate < defaultDate) {
       Notiflix.Notify.failure('Please choose a date in the future');
       btnStart.disabled = true;
-      
+
       return;
     }
     if (setUserDate >= defaultDate) {
       refs.btnStart.disabled = false;
     }
     setTimer(setUserDate);
-    
   },
 };
 
 flatpickr(refs.flatInput, options);
 
 function setTimer(userTime) {
-  
   refs.btnStart.addEventListener('click', () => {
     timerId = setInterval(() => {
       const currentTime = Date.now();
-      
+
       const deltaTime = userTime - currentTime;
       console.log('осталось до указанной даты', deltaTime);
       const { days, hours, minutes, seconds } = convertMs(deltaTime);
@@ -53,9 +51,7 @@ function setTimer(userTime) {
       refs.clockHours.textContent = addLeadingZero(hours);
       refs.clockMinutes.textContent = addLeadingZero(minutes);
       refs.clockSeconds.textContent = addLeadingZero(seconds);
-      
     }, 1000);
-    
   });
 }
 
@@ -83,6 +79,5 @@ function convertMs(ms) {
 }
 
 function addLeadingZero(value) {
- 
   return String(value).padStart(2, '0');
 }
