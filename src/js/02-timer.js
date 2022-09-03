@@ -25,18 +25,22 @@ const options = {
 
     if (setUserDate < defaultDate) {
       Notiflix.Notify.failure('Please choose a date in the future');
+      btnStart.disabled = true;
+      
       return;
     }
     if (setUserDate >= defaultDate) {
       refs.btnStart.disabled = false;
     }
     setTimer(setUserDate);
+    
   },
 };
 
 flatpickr(refs.flatInput, options);
 
 function setTimer(userTime) {
+  
   refs.btnStart.addEventListener('click', () => {
     timerId = setInterval(() => {
       const currentTime = Date.now();
@@ -49,7 +53,9 @@ function setTimer(userTime) {
       refs.clockHours.textContent = addLeadingZero(hours);
       refs.clockMinutes.textContent = addLeadingZero(minutes);
       refs.clockSeconds.textContent = addLeadingZero(seconds);
+      
     }, 1000);
+    
   });
 }
 
@@ -69,9 +75,14 @@ function convertMs(ms) {
   // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
+  if (seconds === 0) {
+    clearInterval(timerId);
+  }
+
   return { days, hours, minutes, seconds };
 }
 
 function addLeadingZero(value) {
+ 
   return String(value).padStart(2, '0');
 }
